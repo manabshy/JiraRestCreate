@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Create Workorder Request</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+  <link href="css/formf1.css" rel="stylesheet"/>
+  <link href="css/uutheme.css" rel="stylesheet"/>
+  <link href="css/signature_pad.css" rel="stylesheet"/>
+  <link href="css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="css/jquery-ui.min.css" rel="stylesheet"/>
+  <script src="js/library/jquery-1.11.1.min.js"></script>  
+  <script src="js/library/bootstrap.min.js"></script>
+  <script src="js/library/jquery-ui.min.js"></script>
+  <script src="js/library/jquery.validate.js"></script>
+  <script src="js/library/angular-1.2.0/angular.min.js"></script>
+  
+  <!-- LOAD ANGULAR -->
+   <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>-->
+
+   <script>
+    var formApp = angular.module('formApp', []);
+
+    // create angular controller and pass in $scope and $http
+    function formController($scope, $http) {
+     
+      // create a blank object to hold our form information
+      // $scope will allow this to pass between controller and view
+
+        $scope.formData = {};
+        // when submitting the add form, send the text to the node API        
+
+        $scope.reset=function(form){
+          if (form) {
+            console.log('reset form is valid');
+            form.$setPristine();
+            $scope.formData = {};
+
+            //form.$setUntouched();
+          }
+          $scope.formData = angular.copy($scope.formData);
+          $('#dialog').css("display","none");
+                
+        };    
+    }
+
+  </script>  
+ 
+</head>
+
+<body ng-app="formApp" ng-controller="formController">
+
+  <div class="container global-border uuBackground">
+    <div class="row div-bottom">
+      <div class="col-sm-6 form-name text-left">
+        <h2>Create Work Order Request</h2>
+        <span class="header">For use by Retailers</span> <br>
+        <span class="headerDescription">Request to fix the meter</span>  
+      </div>
+      <div class="col-sm-6 form-name text-left">
+        <img src="img/UUB_Logo_RGB_1-01.png" class="img-responsive uuLogo" alt="UU Logo"/>
+      </div>
+    </div>    
+    <form novalidate="" name="woForm" role="form" id="woForm" ng-submit="submitForm(woForm.$valid)" class="ng-pristine ng-invalid ng-invalid-required">
+         
+          <div class="row">
+            <div class="col-sm-6 ">
+              <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Work Order Details</legend>
+                <div class="form-group">
+                    <label for="vendorId">Vendor:</label>    
+                    <select id="vendorId" name="vendorId" class="form-control"><option value="Please select one">Please select one</option>
+                      <option value="vendor1">vendor1</option>
+                      <option value="vendor2">vendor2</option>
+                      <option value="vendor3">vendor3</option>
+                      <option value="vendor4">vendor4</option>
+                      <option value="vendor5">vendor5</option>
+                    </select>            
+                </div>   
+
+                <div class="form-group" ng-class="{ 'has-error' : woForm.woNumber.$invalid &amp;&amp; !woForm.woNumber.$pristine}">
+                    <label for="woNumber">Work Order Number:</label>  
+                    <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" id="woNumber" name="woNumber" placeholder="Work Order Number" ng-model="formData.woNumber" readonly> <!--required="">   -->       
+                    <p ng-show="woForm.woNumber.$invalid &amp;&amp; !woForm.woNumber.$pristine" class="help-block ng-hide">Work Order Number is required.</p>       
+
+                </div>    
+                <div class="form-group" ng-class="{ 'has-error' : woForm.impact.$invalid &amp;&amp; !woForm.impact.$pristine }">
+                    <label for="impact">Impact Description:</label>  
+                    <input type="text" class="form-control" id="impact" name="impact" placeholder="Impact" value="" ng-model="formData.impact" required="">    
+                    <p ng-show="woForm.impact.$invalid &amp;&amp; !woForm.impact.$pristine" class="help-block ng-hide">Impact is required.</p>                               
+                </div>  
+                <div class="form-group" ng-class="{ 'has-error' : woForm.operation.$invalid &amp;&amp; !woForm.operation.$pristine }">
+                    <label for="operation">Operation Summary:</label>  
+                    <input type="text" class="form-control ng-pristine ng-valid" id="operation" name="operation" placeholder="Operation" ng-model="formData.operation" required="">   
+                    <p ng-show="woForm.operation.$invalid &amp;&amp; !woForm.operation.$pristine" class="help-block ng-hide">Operation is required.</p>       
+                </div>   
+                <div class="form-group" ng-class="{ 'has-error' : woForm.email.$invalid &amp;&amp; !woForm.email.$pristine }">
+                    <label for="email">Email:</label>  
+                    <input type="email" class="form-control ng-pristine ng-valid ng-valid-email" id="email" name="email" placeholder="Email" ng-model="formData.email" required="">   
+                    <p ng-show="woForm.email.$invalid &amp;&amp; !woForm.email.$pristine" class="help-block ng-hide">Enter a valid email.</p>
+
+                </div>                    
+                <div class="form-group" ng-class="{ 'has-error' : woForm.contactNumber.$invalid &amp;&amp; !woForm.contactNumber.$pristine }">
+                    <label for="ContactNumber">Contact number:</label>  
+                    <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" id="contactNumber" name="contactNumber" placeholder="Contact Number" ng-model="formData.contactNumber" >                      
+                    <p ng-show="woForm.contactNumber.$invalid &amp;&amp; !woForm.contactNumber.$pristine" class="help-block ng-hide">Your Contact Number is required.</p>       
+
+                </div>    
+              </fieldset>
+            </div>
+            <div class="col-sm-6 ">
+              <fieldset class="scheduler-border">
+                <legend class="scheduler-border"> Contact Details </legend>
+                <div class="form-group">
+                    <label for="cause">Customer:</label>    
+                    <input type="text" class="form-control" id="customer" placeholder="Customer name" value="">                      
+                </div>   
+                <div class="form-group" ng-class="{ 'has-error' : woForm.contactName.$invalid &amp;&amp; !woForm.contactName.$pristine}">
+                    <label for="contactName">Name:</label>  
+                    <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" id="contactName" name="contactName" placeholder="Contact Name" ng-model="formData.contactName" >   
+                    <p ng-show="woForm.contactName.$invalid &amp;&amp; !woForm.contactName.$pristine" class="help-block ng-hide">Your Contact Name is required.</p>       
+
+                </div>  
+                <div class="form-group">
+                    <label for="cause">Cause:</label>    
+                    <input type="text" class="form-control" id="cause" placeholder="Cause" value="">                      
+                </div>  
+                <div class="form-group">
+                    <label for="postcodePremises">City:</label>    
+                    <input type="text" class="form-control" id="city" placeholder="City" value="">                      
+                </div>
+                <div class="form-group">
+                    <label for="postcodePremises">Postcode:</label>    
+                    <input type="text" class="form-control" id="postcodePremises" placeholder="Post Code" value="">                      
+                </div> 
+
+              <div class="form-group">
+                  <label for="date">Date (dd/mm/yyyy):</label>  
+                  <input type="text" class="form-control" id="date" name="signdate" placeholder="Date (dd/mm/yyyy)"
+                  ng-model="formData.signdate">
+              </div>             
+              </fieldset>
+            </div>
+          </div>  
+
+          <div class="row">
+            <div class="col-sm-12 text-center btnblk">
+              <button type="submit" class="btn btn-success sendwoFormData" ng-disabled="woForm.$invalid" ng-click="createWordOrder(woForm)" disabled="disabled">Submit</button>  
+              <input type="button" class="btn btn-info" ng-click="reset(woForm)" value="Reset">
+              <div id="dialog" title="Success" style="display: none;">
+                <p>Work Order.</p>
+              </div>              
+              <div id="errordialog" title="Error">
+                <p></p>
+              </div>              
+
+          </div>    
+        
+    </form>    
+    <!-- show the data as the inputs are being typed -->
+    <pre  class="ng-binding">
+        {{ formData }}
+    </pre>    
+  </div>  
+  <script src="js/f1Script.js"></script>
+  <script src="js/jirarest.js"></script>
+  <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script> 
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{   
+"fields": {
+        "project": {
+            "id": "10301"
+        },
+        "summary": "Issue created from CURL call",
+		"description": "Description text",
+        "issuetype":  {
+            "id": "10205"
+        },
+		"customfield_10600": { "id": "10300" },
+		"customfield_10602": { "id": "10301" },
+		"customfield_10603": "Retailer ID text",
+		"customfield_10608": { "id": "10303" },
+		"customfield_10609": "SPID text",
+		"customfield_10610": "UPRN text",
+		"customfield_10611": "Address of eligible premises to be visited text",
+		"customfield_10612": "Postcode text"
+    }
+}

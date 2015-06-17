@@ -1,0 +1,30 @@
+	var  url = "http://localhost:9090/rest/api/2/search?jql=project='WO'+order+by+duedate&fields=key";
+	$.ajax({
+
+	    url:url,
+		type: "GET",
+				
+	    dataType: "json",
+	    contentType: "application/json",
+	    async: false,
+	    success: function (responseText) {
+	    	console.log("issue Key:%s" , responseText['issues'].length  );
+        
+            var result;
+            var keys = [];
+            var options = $("#woNumber");
+            for( var i = 0, len = responseText['issues'].length; i < len; i++ ) {
+                  //console.log(responseText['issues'][i]['key']);
+                  keys.push(responseText['issues'][i]['key']);
+            }
+			$.each(keys, function(index,event) {
+			    console.log(keys[5]);
+			    options.append($("<option />").text(keys[index]));
+			});
+	    },
+	    	
+	    error: function(response) {
+	    	console.log(response.responseText['expand']);
+	    	alert("Error");
+	    }
+	});
