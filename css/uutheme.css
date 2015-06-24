@@ -135,3 +135,7 @@ table th {
 #errordialig{
   display:none;
 }  
+#errordialog,#dialog {
+  background-color: #004854!important;
+  color: white!important;
+}

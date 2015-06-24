@@ -53,13 +53,13 @@ $('.sendwoFormData').click(function(){
 	    contentType: "application/json",
 	    async: false,
 	    success: function (issuedata) {
-          $( "#dialog").text('WO Created in Jira:' + issuedata.key).css('color','#449d44');	
+          $( "#dialog").text('WO Created in Jira:' + issuedata.key);	
           $( "#dialog" ).dialog();	    	
 	      $('#woNumber').val(issuedata.key);
 	    },
 	    error: function(XMLHttpRequest, textStatus, errorThrown) {
 	      console.log(JSON.parse(XMLHttpRequest.responseText).errors);	  
-          $( "#errordialog").text("Error Posting data in Jira").css('color','red')  ;	
+          $( "#errordialog").text("Error Posting data in Jira")  ;	
           $( "#errordialog" ).dialog();	    
 	    }
 	});
